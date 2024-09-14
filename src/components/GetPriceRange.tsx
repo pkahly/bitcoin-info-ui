@@ -2,21 +2,23 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { getInput } from '../util/Utils.ts';
 
-export default function GetPrice() {
+export default function GetPriceRange() {
     const [priceInfo, setPriceInfo] = useState("");
 
     useEffect(() => {
-        getPriceInfo();
-      }, []);
+        getPriceRangeInfo();
+    }, []);
 
-    const getPriceInfo = async () => {
-        let date = getInput("dateInput")
-        if (!date) {
+    const getPriceRangeInfo = async () => {
+        let startDate = getInput("dateInputStart")
+        let endDate = getInput("dateInputEnd")
+
+        if (!startDate || !endDate) {
             setPriceInfo("")
-            return
+            return ""
         }
 
-        const response = await fetch(`http://localhost:8080/price/${date}`)
+        const response = await fetch(`http://localhost:8080/price/${startDate}/${endDate}`)
         if (response.ok && response.status == 200) {
             const priceJson = await response.json();
             setPriceInfo(JSON.stringify(priceJson));
@@ -33,9 +35,10 @@ export default function GetPrice() {
             <p>{priceInfo}</p>
 
             <label>
-                Date: <input id="dateInput" defaultValue="2022-11-13" />
+                Start Date: <input id="dateInputStart" defaultValue="2022-11-01" />
+                End Date: <input id="dateInputEnd" defaultValue="2022-11-14" />
             </label>
-            <button onClick={getPriceInfo}>Submit</button>
+            <button onClick={getPriceRangeInfo}>Submit</button>
         </div>
     )
 }

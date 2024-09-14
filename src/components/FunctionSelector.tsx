@@ -1,8 +1,9 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import GetPrice from './GetPrice.tsx';
+import GetPriceRange from './GetPriceRange.tsx';
 
-export default function FuctionSelector():JSX.Element {
+export default function FuctionSelector() {
     const [type, setType] = useState(0);
 
     function typeSelector() {
@@ -15,6 +16,9 @@ export default function FuctionSelector():JSX.Element {
                 
                 <label htmlFor="getPrice">getPrice</label>
                 <input type="radio" id="getPrice" name="type" checked={type === 1} onChange={() => setType(1)} />
+
+                <label htmlFor="getPriceRange">getPriceRange</label>
+                <input type="radio" id="getPriceRange" name="type" checked={type === 2} onChange={() => setType(2)} />
             </div>
         )
     }
@@ -26,6 +30,14 @@ export default function FuctionSelector():JSX.Element {
                     {typeSelector()}
                     <hr />
                     <GetPrice />
+                </div>
+            )
+        } else if (type == 2) {
+            return (
+                <div>
+                    {typeSelector()}
+                    <hr />
+                    <GetPriceRange />
                 </div>
             )
         } else {
