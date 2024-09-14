@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-export default function Price() {
+export default function GetPrice() {
     const [priceInfo, setPriceInfo] = useState("");
 
     useEffect(() => {
@@ -36,7 +36,6 @@ export default function Price() {
     return (
         <div>
             <p>{priceInfo}</p>
-            <hr></hr>
 
             <label>
                 Date: <input id="dateInput" defaultValue="2022-11-13" />
