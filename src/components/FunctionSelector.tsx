@@ -19,6 +19,13 @@ export default function FuctionSelector() {
 
                 <label htmlFor="getPriceRange">getPriceRange</label>
                 <input type="radio" id="getPriceRange" name="type" checked={type === 2} onChange={() => setType(2)} />
+
+                <br />
+                <br />
+
+                <hr />
+                
+                <br />
             </div>
         )
     }
@@ -28,7 +35,6 @@ export default function FuctionSelector() {
             return (
                 <div>
                     {typeSelector()}
-                    <hr />
                     <GetPrice />
                 </div>
             )
@@ -36,7 +42,6 @@ export default function FuctionSelector() {
             return (
                 <div>
                     {typeSelector()}
-                    <hr />
                     <GetPriceRange />
                 </div>
             )
