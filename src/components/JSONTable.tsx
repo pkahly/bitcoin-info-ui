@@ -13,7 +13,7 @@ export default function JSONTable({data, uniqueKey}) {
         });
     }
 
-    function getRows(data) {
+    function getRows(data: []) {
         if (!data) {
             return
         }

@@ -12,8 +12,15 @@ export class PriceInfo {
     close:string
 }
 
+enum RangeType {
+    DAY,
+    MONTH,
+    YEAR
+}
+
 export default function GetPriceRange() {
     const [priceInfo, setPriceInfo] = useState<PriceInfo[]>([]);
+    const [rangeType, setRangeType] = useState<RangeType>(RangeType.DAY);
 
     useEffect(() => {
         getPriceRangeInfo();
@@ -24,19 +31,18 @@ export default function GetPriceRange() {
         let endDate = getInput("dateInputEnd")
 
         if (!startDate || !endDate) {
-            setPriceInfo("")
-            return ""
+            console.warn("Dates are required")
+            return
         }
 
-        const response = await fetch(`http://localhost:8080/price/${startDate}/${endDate}`)
+        const response = await fetch(`http://localhost:8080/price/${startDate}/${endDate}?rangeType=${RangeType[rangeType]}`)
         if (response.ok && response.status == 200) {
             const priceJson:PriceInfo = await response.json();
             setPriceInfo(priceJson);
         } else if (response.status == 204) {
-            setPriceInfo("No Data")
+            console.log("No Data")
         } else {
             console.error(response)
-            setPriceInfo("An error occurred")
         }
     }
 
@@ -53,6 +59,22 @@ export default function GetPriceRange() {
                 Start Date: <input id="dateInputStart" defaultValue="2022-11-01" />
                 End Date: <input id="dateInputEnd" defaultValue="2022-11-14" />
             </label>
+
+            <br />
+            <br />
+
+            <label htmlFor="dayType">Day</label>
+            <input type="radio" id="dayType" name="rangeType" checked={rangeType === 0} onChange={() => setRangeType(0)} />
+
+            <label htmlFor="monthType">Month</label>
+            <input type="radio" id="monthType" name="rangeType" checked={rangeType === 1} onChange={() => setRangeType(1)} />
+
+            <label htmlFor="yearType">Year</label>
+            <input type="radio" id="yearType" name="rangeType" checked={rangeType === 2} onChange={() => setRangeType(2)} />
+
+            <br />
+            <br />
+
             <button onClick={getPriceRangeInfo}>Submit</button>
 
             <br />

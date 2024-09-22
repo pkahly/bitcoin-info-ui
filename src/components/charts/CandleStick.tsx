@@ -12,6 +12,10 @@ class ChartData {
 }
 
 function createPriceData(priceInfo: PriceInfo[]):ChartData[] {
+  if (!priceInfo) {
+    return []
+  }
+  
   let chartData:ChartData[] = []
 
   priceInfo.forEach(priceInfo => {
