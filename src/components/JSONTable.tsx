@@ -1,6 +1,4 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { getInput } from '../util/Utils.ts';
 
 export default function JSONTable({data, uniqueKey}) {
     function getHeadings(data) {
